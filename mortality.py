@@ -2,9 +2,16 @@
 
 from datetime import *
 import os
+import textwrap
 
 today = date.today()
 configfile = os.path.expanduser("~/.config/mortality")
+
+# terminal window size, for textwrap lib
+termh, termw = os.popen('stty size', 'r').read().split()
+termh = int(termh)
+termw = int(termw)
+
 
 def readConfig():
     '''Return the first non-comment line into a date object.'''
@@ -21,9 +28,9 @@ def readConfig():
 
 def promptForBirthday():
     '''Prompt interactively for birthday if we can't find one stored.'''
-    print("This is the memento-mori shell script. Looks like you don't")
-    print("have a config file yet. It's pretty easy. Just enter your")
-    print("birthday in the format YYYY/MM/DD :")
+    print()
+    print(textwrap.fill("This is the memento-mori shell script. Looks like you don't have a config file yet. It's pretty easy. Just enter your birthday in the format YYYY/MM/DD :", width=termw))
+    print()
     while True:
         try:
             birthday = datetime.strptime(input("Birhday: "), "%Y/%m/%d").date()
@@ -71,13 +78,13 @@ def printInfoForBirthday(birthday):
     ageinyears = int(age.days / 365)
     remainder = today - origin
 
+    msg1 = "Today is {}{} You are {} years and {} days old.{}".format(\
+            today.strftime("%A, %B, %d."), colors['UNDERLINE'], ageinyears, remainder.days, colors['CLEAR'])
+    msg2 = "There are {} days until your next birthday, and {} days left in the year.".format(\
+            daysuntilbirthday.days, daysuntilnewyear.days)
     print()
-    print("Today is", today.strftime("%A, %B %d."), \
-        colors['UNDERLINE'] + "You are", ageinyears, "years and", \
-        remainder.days, "days old." + colors['CLEAR'])
-    print("There are", daysuntilbirthday.days, \
-        "days until your next birthday, and", daysuntilnewyear.days, \
-        "days left in the year.")
+    print(textwrap.fill(msg1, width=termw))
+    print(textwrap.fill(msg2, width=termw))
     print()
 
 main()
