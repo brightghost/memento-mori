@@ -55,7 +55,8 @@ def readConfig():
 def promptForBirthday():
     '''Prompt interactively for birthday if we can't find one stored.'''
     print()
-    print(textwrap.fill("This is the memento-mori shell script. Looks like you don't have a config file yet. It's pretty easy. Just enter your birthday in the format YYYY/MM/DD :", width=termw))
+    print(textwrap.fill("This is the memento-mori shell script. Looks like you don't have a config file yet. \
+        It's pretty easy. Just enter your birthday in the format YYYY/MM/DD :", width=termw))
     print()
     while True:
         try:
@@ -84,7 +85,9 @@ def main():
         with open(configfile, 'a') as f:
             print("# Config file for the mortality.py shell prompt script. \
                 # In addition to the birthday below, the  modify time is \
-                # significant as it is used to show the prompt only once/day.", \
+                # significant as it is used to show the prompt only once/day.\
+                # \
+                # github.com/brightghost/memento-mori",
                 file=f)
             print(birthday, file=f)
             printInfoForBirthday(birthday)
