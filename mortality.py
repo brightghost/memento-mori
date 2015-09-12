@@ -78,7 +78,7 @@ def printInfoForBirthday(birthday):
     ageinyears = int(age.days / 365)
     remainder = today - origin
 
-    msg1 = "Today is {}{} You are {} years and {} days old.{}".format(\
+    msg1 = "Today is {} {}You are {} years and {} days old.{}".format(\
             today.strftime("%A, %B, %d."), colors['UNDERLINE'], ageinyears, remainder.days, colors['CLEAR'])
     msg2 = "There are {} days until your next birthday, and {} days left in the year.".format(\
             daysuntilbirthday.days, daysuntilnewyear.days)
