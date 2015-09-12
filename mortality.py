@@ -1,5 +1,31 @@
 #!/usr/bin/env python3.4
 
+# Don't blame me if this depressing script makes you kill yourself. 
+# But also please don't do that, because I love you. --S Walker 2015/9/6
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2015 S. Walker
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+
 from datetime import *
 import os
 import textwrap
@@ -29,7 +55,8 @@ def readConfig():
 def promptForBirthday():
     '''Prompt interactively for birthday if we can't find one stored.'''
     print()
-    print(textwrap.fill("This is the memento-mori shell script. Looks like you don't have a config file yet. It's pretty easy. Just enter your birthday in the format YYYY/MM/DD :", width=termw))
+    print(textwrap.fill("This is the memento-mori shell script. Looks like you don't have a config file yet. \
+        It's pretty easy. Just enter your birthday in the format YYYY/MM/DD :", width=termw))
     print()
     while True:
         try:
@@ -58,7 +85,9 @@ def main():
         with open(configfile, 'a') as f:
             print("# Config file for the mortality.py shell prompt script. \
                 # In addition to the birthday below, the  modify time is \
-                # significant as it is used to show the prompt only once/day.", \
+                # significant as it is used to show the prompt only once/day.\
+                # \
+                # github.com/brightghost/memento-mori",
                 file=f)
             print(birthday, file=f)
             printInfoForBirthday(birthday)
