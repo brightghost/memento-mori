@@ -29,6 +29,7 @@
 from datetime import *
 import os
 import textwrap
+from IPython import embed
 
 today = date.today()
 configfile = os.path.expanduser("~/.config/mortality")
@@ -80,6 +81,8 @@ def main():
         if mtime <= midnight:
             os.utime(configfile)
             printInfoForBirthday(birthday)
+        # DEBUG
+        embed()
     except (OSError):
         birthday = promptForBirthday()
         with open(configfile, 'a') as f:
@@ -101,7 +104,11 @@ def printInfoForBirthday(birthday):
         'UNDERLINE': '\033[4m' }
     origin = date(today.year, 1, 1) - timedelta(1)
     thisyearsbirthday = date(today.year, birthday.month, birthday.day)
-    daysuntilbirthday = thisyearsbirthday - today
+    nextyearsbirthday = date((today.year + 1), birthday.month, birthday.day)
+    if thisyearsbirthday >= today:
+        daysuntilbirthday = thisyearsbirthday - today
+    elif thisyearsbirthday < today:
+        daysuntilbirthday = nextyearsbirthday - today
     daysuntilnewyear = date((today.year + 1), 1, 1) - today
     age = today - birthday
     ageinyears = int(age.days / 365)
