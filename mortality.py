@@ -105,19 +105,24 @@ def printInfoForBirthday(birthday):
     origin = date(today.year, 1, 1) - timedelta(1)
     thisyearsbirthday = date(today.year, birthday.month, birthday.day)
     nextyearsbirthday = date((today.year + 1), birthday.month, birthday.day)
-    if thisyearsbirthday >= today:
+    if thisyearsbirthday > today:
         daysuntilbirthday = thisyearsbirthday - today
-    elif thisyearsbirthday < today:
+    elif thisyearsbirthday <= today:
         daysuntilbirthday = nextyearsbirthday - today
     daysuntilnewyear = date((today.year + 1), 1, 1) - today
     age = today - birthday
     ageinyears = int(age.days / 365)
     remainder = int(age.days % 365)
 
-    msg1 = "Today is {} {}You are {} years and {} days old.{}".format(\
-            today.strftime("%A, %B, %d."), colors['UNDERLINE'], ageinyears, remainder, colors['CLEAR'])
-    msg2 = "There are {} days until your next birthday, and {} days left in the year.".format(\
-            daysuntilbirthday.days, daysuntilnewyear.days)
+    if today == thisyearsbirthday:
+        msg1 = "Today is {}. {}You are exactly {} years old!{}".format(
+                today.strftime("%A, %B, %d"), colors['UNDERLINE'],
+                ageinyears, colors['CLEAR'])
+    else:
+        msg1 = "Today is {}. {}You are {} years and {} days old.{}".format(
+                today.strftime("%A, %B, %d"), colors['UNDERLINE'],
+                ageinyears, remainder, colors['CLEAR'])
+    msg2 = "There are {} days until your next birthday, and {} days left in the year.".format(daysuntilbirthday.days, daysuntilnewyear.days)
     print()
     print(textwrap.fill(msg1, width=termw))
     print(textwrap.fill(msg2, width=termw))
