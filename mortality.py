@@ -29,7 +29,6 @@
 from datetime import *
 import os
 import textwrap
-from IPython import embed
 
 today = date.today()
 configfile = os.path.expanduser("~/.config/mortality")
@@ -81,8 +80,6 @@ def main():
         if mtime <= midnight:
             os.utime(configfile)
             printInfoForBirthday(birthday)
-        # DEBUG
-        embed()
     except (OSError):
         birthday = promptForBirthday()
         with open(configfile, 'a') as f:
