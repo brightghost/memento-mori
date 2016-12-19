@@ -48,7 +48,7 @@ def readConfig():
         with open(configfile, 'r') as f:
             for line in f:
                 line = line.strip()
-                if not line.startswith("#"):
+                if line and not line.startswith("#"):
                     return datetime.strptime(line, "%Y-%m-%d").date()
     except:
         print("Error reading the memento-mori config file (", configfile, ")")
