@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.4
 
-# Don't blame me if this depressing script makes you kill yourself. 
+# Don't blame me if this depressing script makes you feel bad. 
 # But also please don't do that, because I love you. --S Walker 2015/9/6
 #
 # The MIT License (MIT)
@@ -34,10 +34,13 @@ today = date.today()
 configfile = os.path.expanduser("~/.config/mortality")
 
 # terminal window size, for textwrap lib
-termh, termw = os.popen('stty size', 'r').read().split()
-termh = int(termh)
-termw = int(termw)
-
+try:
+    termh, termw = os.popen('stty size', 'r').read().split()
+    termh = int(termh)
+    termw = int(termw)
+except ValueError:
+    # Just try some conservative defaults
+    termh, termw = 20, 40
 
 def readConfig():
     '''Return the first non-comment line into a date object.'''
@@ -55,8 +58,7 @@ def readConfig():
 def promptForBirthday():
     '''Prompt interactively for birthday if we can't find one stored.'''
     print()
-    print(textwrap.fill("This is the memento-mori shell script. Looks like you don't have a config file yet. \
-        It's pretty easy. Just enter your birthday in the format YYYY/MM/DD :", width=termw))
+    print(textwrap.fill("This is the memento-mori shell script. Looks like you don't have a config file yet. It's pretty easy. Just enter your birthday in the format YYYY/MM/DD :", width=termw))
     print()
     while True:
         try:
@@ -83,11 +85,12 @@ def main():
     except (OSError):
         birthday = promptForBirthday()
         with open(configfile, 'a') as f:
-            print("# Config file for the mortality.py shell prompt script. \
-                # In addition to the birthday below, the  modify time is \
-                # significant as it is used to show the prompt only once/day.\
-                # \
-                # github.com/brightghost/memento-mori",
+            print("# Config file for the mortality.py shell prompt script.\n"
+                "# In addition to the birthday below, the  file modify\n"
+                "# time is significant as it is used to show the prompt\n"
+                "# only once/day.\n"
+                "#\n"
+                "# github.com/brightghost/memento-mori\n",
                 file=f)
             print(birthday, file=f)
             printInfoForBirthday(birthday)
@@ -113,13 +116,14 @@ def printInfoForBirthday(birthday):
 
     if today == thisyearsbirthday:
         msg1 = "Today is {}. {}You are exactly {} years old!{}".format(
-                today.strftime("%A, %B, %d"), colors['UNDERLINE'],
+                today.strftime("%A, %B %d"), colors['UNDERLINE'],
                 ageinyears, colors['CLEAR'])
     else:
         msg1 = "Today is {}. {}You are {} years and {} days old.{}".format(
-                today.strftime("%A, %B, %d"), colors['UNDERLINE'],
+                today.strftime("%A, %B %d"), colors['UNDERLINE'],
                 ageinyears, remainder, colors['CLEAR'])
     msg2 = "There are {} days until your next birthday, and {} days left in the year.".format(daysuntilbirthday.days, daysuntilnewyear.days)
+
     print()
     print(textwrap.fill(msg1, width=termw))
     print(textwrap.fill(msg2, width=termw))
