@@ -1,11 +1,11 @@
 #!/usr/bin/env python3.4
 
 # Please don't use this if it makes you feel bad about yourself. I love you.
-# --S Walker 2015/9/6
+# --S Walker 2016/12/19
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2015 S. Walker
+# Copyright (c) 2016 S. Walker
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
