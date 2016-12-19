@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.4
 
-# Don't blame me if this depressing script makes you feel bad. 
-# But also please don't do that, because I love you. --S Walker 2015/9/6
+# Please don't use this if it makes you feel bad about yourself. I love you.
+# --S Walker 2015/9/6
 #
 # The MIT License (MIT)
 #
