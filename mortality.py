@@ -25,10 +25,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-
 from datetime import *
 import os
 import textwrap
+import argparse
 
 today = date.today()
 configfile = os.path.expanduser("~/.config/mortality")
@@ -75,11 +75,20 @@ def main():
     '''Check that we have birthday saved and then print our info
     only if it's the first terminal of the day; tracked by touching
     the config file.'''
+    parser = argparse.ArgumentParser(description="Show a daily message "
+            "regarding your personal march to the grave."
+            "The intended use-case is for this script to be sourced in a "
+            "shell profile, with no arguments; you will be prompted to create "
+            "a config file on first use.")
+    parser.add_argument('-p', '--print', action='store_true',
+            help="force printing of the message, even if it's "
+            "already been shown today.")
+    args = parser.parse_args()
     try:
         mtime = datetime.fromtimestamp(os.stat(configfile).st_mtime)
         birthday = readConfig()
         midnight = datetime(today.year, today.month, today.day)
-        if mtime <= midnight:
+        if (mtime <= midnight) or args.print:
             os.utime(configfile)
             printInfoForBirthday(birthday)
     except (OSError):
